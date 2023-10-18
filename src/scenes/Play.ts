@@ -2,6 +2,27 @@ import * as Phaser from "phaser";
 
 import starfieldUrl from "/assets/starfield.png";
 
+class Enemy {
+  initialX: number;
+  initialY: number;
+  x: number;
+  y: number;
+  vel: number;
+  //body: Enemy;
+  constructor(x: number, y: number, vel: number) {
+    this.x = x;
+    this.initialX = x;
+    this.y = y;
+    this.initialY = y;
+    this.vel = vel;
+    //this.body = body;
+  }
+  respawn() {
+    this.x = this.initialX;
+    this.y = this.initialY;
+  }
+}
+
 export default class Play extends Phaser.Scene {
   fire?: Phaser.Input.Keyboard.Key;
   left?: Phaser.Input.Keyboard.Key;
@@ -9,6 +30,11 @@ export default class Play extends Phaser.Scene {
 
   starfield?: Phaser.GameObjects.TileSprite;
   spinner?: Phaser.GameObjects.Shape;
+  enemies = [
+    new Enemy(100, 100, 5),
+    new Enemy(200, 200, 2),
+    new Enemy(300, 300, 9),
+  ];
 
   velocity = 10;
   isFiring = false;
