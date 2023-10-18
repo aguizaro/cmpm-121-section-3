@@ -55,11 +55,14 @@ export default class Play extends Phaser.Scene {
       this.spinner!.setX(this.spinner!.x + this.velocity);
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.fire!)) {
+    if (this.fire!.isDown) {
       this.isFiring = true;
-      while (this.spinner!.y > 30) {
-        this.spinner!.setY(this.spinner!.y - this.velocity);
-        //sleep here
+    }
+    if (this.isFiring) {
+      this.spinner!.setY(this.spinner!.y - this.velocity);
+      if (this.spinner!.y < -30) {
+        this.isFiring = false;
+        this.spinner!.setY(440);
       }
     }
   }
